@@ -11,20 +11,6 @@ import { HTMLStencilElement, JSXBase } from '@stencil/core/internal';
 
 export namespace Components {
   interface ElijahDatePicker {}
-  interface MyComponent {
-    /**
-    * The first name
-    */
-    'first': string;
-    /**
-    * The last name
-    */
-    'last': string;
-    /**
-    * The middle name
-    */
-    'middle': string;
-  }
 }
 
 declare global {
@@ -35,38 +21,16 @@ declare global {
     prototype: HTMLElijahDatePickerElement;
     new (): HTMLElijahDatePickerElement;
   };
-
-  interface HTMLMyComponentElement extends Components.MyComponent, HTMLStencilElement {}
-  var HTMLMyComponentElement: {
-    prototype: HTMLMyComponentElement;
-    new (): HTMLMyComponentElement;
-  };
   interface HTMLElementTagNameMap {
     'elijah-date-picker': HTMLElijahDatePickerElement;
-    'my-component': HTMLMyComponentElement;
   }
 }
 
 declare namespace LocalJSX {
   interface ElijahDatePicker {}
-  interface MyComponent {
-    /**
-    * The first name
-    */
-    'first'?: string;
-    /**
-    * The last name
-    */
-    'last'?: string;
-    /**
-    * The middle name
-    */
-    'middle'?: string;
-  }
 
   interface IntrinsicElements {
     'elijah-date-picker': ElijahDatePicker;
-    'my-component': MyComponent;
   }
 }
 
@@ -77,7 +41,6 @@ declare module "@stencil/core" {
   export namespace JSX {
     interface IntrinsicElements {
       'elijah-date-picker': LocalJSX.ElijahDatePicker & JSXBase.HTMLAttributes<HTMLElijahDatePickerElement>;
-      'my-component': LocalJSX.MyComponent & JSXBase.HTMLAttributes<HTMLMyComponentElement>;
     }
   }
 }
