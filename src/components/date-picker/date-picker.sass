@@ -14,12 +14,11 @@
         padding: 0.5rem
     .date-picker__navigation
         display: flex
+        justify-content: space-between
         align-items: center
-        justify-content: center
         border: 1px solid black
         button
             padding: 0.2rem 0.4rem
-            margin: 0.5rem
             background-color: transparent
             color: orange
             border-color: transparent
@@ -35,15 +34,20 @@
            
     .date-picker__month
         .month-content__week-days
-            max-height: 5vh
             display: grid
             grid-template-columns: repeat(7, 1fr)
-            grid-template-rows: 100% 
+            grid-template-rows: 5vh 
             text-align: center
             .week-day
                 align-self: center
 
         .month-content__month-days
+            .selected-day
+                background-color: red
+                text-align: center
+                padding: 0.2rem
+                border: 1px solid black
+                text-decoration: none
             display: grid
             grid-template-columns: repeat(7, 1fr)
             .day

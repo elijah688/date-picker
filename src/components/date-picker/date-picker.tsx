@@ -1,4 +1,4 @@
-import { Component, h, State } from "@stencil/core";
+import { Component, h, State, Watch } from "@stencil/core";
 
 enum WeekDays {
     Monday = 'Monday', 
@@ -10,20 +10,20 @@ enum WeekDays {
     Sunday = 'Sunday'
 }
 
-// enum Months {
-//     January = 'January',
-//     February =  'February',
-//     March =  'March',
-//     April =  'April',
-//     May =  'May',
-//     June =  'June',
-//     July =  'July',
-//     August =  'August',
-//     September =  'September',
-//     October =  'October',
-//     November =  'November',
-//     December =  'December'
-// }
+enum Months {
+    January = 'January',
+    February =  'February',
+    March =  'March',
+    April =  'April',
+    May =  'May',
+    June =  'June',
+    July =  'July',
+    August =  'August',
+    September =  'September',
+    October =  'October',
+    November =  'November',
+    December =  'December'
+}
 
 @Component({
     tag:'elijah-date-picker',
@@ -36,6 +36,10 @@ export class DatePicker{
 
     @State() currnetDay:number;
     @State() currentMonth:number;
+    // @Watch('currentMonth')
+    // handleMonthChenge(newValue: string, oldValue: string){
+
+    // }
     @State() currentYear:number;
 
 
@@ -83,6 +87,30 @@ export class DatePicker{
         
     }
 
+    private _setCurrentDay(event:Event):void{
+        event.preventDefault();
+        const day:string = (event.target as HTMLAnchorElement).innerHTML
+        this.currnetDay = +day;
+    }
+    private _goToNextMonth():void{
+        if(this.currentMonth===11){
+            this.currentMonth = 0;
+            this.currentYear++;
+        }
+        else{
+            this.currentMonth++;
+        }
+    }
+
+    private _goToPreviousMonth():void{
+        if(this.currentMonth===0){
+            this.currentMonth = 11;
+            this.currentYear--;
+        }
+        else{
+            this.currentMonth--;
+        }
+    }
 
     render(){
         const daysInCurrentMonth:number = this._generateMonthDays(this.currentMonth);
@@ -91,11 +119,11 @@ export class DatePicker{
 
         const datePicker = (
             <div class="date-picker">
-                <h1 class="current-date">22/22/2019</h1>
+                <h1 class="current-date">{[this.currnetDay].map(d=>d<=9 ? "0" + d : d)}/{[this.currentMonth+1].map(m=>m<=9? '0' + m : m)[0]}/{this.currentYear}</h1>
                 <header class="date-picker__navigation">
-                    <button class="previous-month">&lt;</button>
-                    <h2 class="current-month">December</h2>
-                    <button class="next-month">&gt;</button>
+                    <button onClick={this._goToPreviousMonth.bind(this)} class="previous-month">&lt;</button>
+                    <h2 class="current-month">{Object.keys(Months)[this.currentMonth]}</h2>
+                    <button onClick={this._goToNextMonth.bind(this)} class="next-month">&gt;</button>
 
                 </header>
                 <main class="date-picker__month">
@@ -108,7 +136,7 @@ export class DatePicker{
                         </div>
                         <div class="month-content__month-days">
                             {days.map(d=>
-                                <a href="#" class="day">{d}</a>
+                                <a class={d===this.currnetDay ? 'selected-day' : 'day'} onClick={this._setCurrentDay.bind(this)} href="#" >{d}</a>
                              )
                             }
                         </div>
