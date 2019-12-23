@@ -1,6 +1,6 @@
 {
-  "name": "date-picker",
-  "version": "0.0.1",
+  "name": "elijah-wc-date-picker",
+  "version": "0.0.2",
   "description": "Stencil Component Starter",
   "main": "dist/index.js",
   "module": "dist/index.mjs",
