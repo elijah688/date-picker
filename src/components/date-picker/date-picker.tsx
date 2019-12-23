@@ -110,6 +110,20 @@ export class DatePicker{
     }
 
 
+    private _getRemainingDays(days:number[], suppDays:number[]):number[]{
+        
+        const surplusDaysCount:number = 42 - (days.length + suppDays.length);
+        let nextMonth:number = this.selectedMonth + 1;
+        if(this.selectedMonth===11){
+            nextMonth=0;
+        }
+        const nextMonthDays:number = this._generateMonthDays(nextMonth);
+        
+        const surplusDays:number[] = Array.from(Array(this._generateMonthDays(nextMonthDays)).keys()).map(d=>d+1).slice(0,surplusDaysCount);
+        return surplusDays;
+    }
+
+
 
     componentWillLoad(){
         this.selectedDate = new Date();
@@ -140,16 +154,20 @@ export class DatePicker{
 
         this.selectedDate = this._generateDate(this.selectedDay,this.selectedMonth,this.selectedYear)
 
-        // console.log(this.selectedDate.toString())
     }
 
 
     
     private _goToNextMonth():void{
+        if(this.selectedMonth===0 && this.selectedDay>this._handleFebruary()){
+            this.selectedDay=this._handleFebruary()
+        }
+
         if(this.selectedMonth===11){
             this.selectedMonth = 0;
             this.selectedYear++;
         }
+        
         else{
             this.selectedMonth++;
         }
@@ -158,6 +176,10 @@ export class DatePicker{
     }
 
     private _goToPreviousMonth():void{
+        if(this.selectedMonth===2 && this.selectedDay>this._handleFebruary()){
+            this.selectedDay=this._handleFebruary()
+        }
+        
         if(this.selectedMonth===0){
             this.selectedMonth = 11;
             this.selectedYear--;
@@ -169,19 +191,27 @@ export class DatePicker{
         this.selectedDate = this._generateDate(this.selectedDay, this.selectedMonth, this.selectedYear)
     }
 
-    private _goToSuppDate(event:Event):void{
+    private _onPreviousMonthDaySelected(event:Event):void{
         event.preventDefault()
-        this._goToPreviousMonth();
         this.selectedDay = +(event.target as HTMLAnchorElement).innerHTML;
+        this._goToPreviousMonth();
+    }
 
-        this.selectedDate = this._generateDate(this.selectedDay, this.selectedMonth, this.selectedYear)
+    private _onNextMonthDaySelected(event:Event):void{
+        event.preventDefault()
+        this.selectedDay = +(event.target as HTMLAnchorElement).innerHTML;
+        this._goToNextMonth();
     }
 
     render(){
         
         const daysInCurrentMonth:number = this._generateMonthDays(this.selectedMonth);
+        
         const days:number[] = (Array.from(Array(daysInCurrentMonth).keys()).map(d=>d+1));
         const supplementaryDays:number[] = this._getSupplementaryDays(days);
+        const remainingDays:number[] = this._getRemainingDays(days, supplementaryDays);
+        
+
         const weekDays:string[] = this._generateWeekDays(days.slice(0,7));
 
         const datePicker = (
@@ -203,13 +233,18 @@ export class DatePicker{
                         </div>
                         <div class="month-content__month-days">
                             {supplementaryDays.map(d=>
-                                <a class='supplementary-day' onClick={this._goToSuppDate.bind(this)} href="#" >{d}</a>
+                                <a class='supplementary-day' onClick={this._onPreviousMonthDaySelected.bind(this)} href="#" >{d}</a>
                              )
                             }
                             {days.map(d=>
-                                <a class={d===this.selectedDay ? 'selected-day' : 'day'} onClick={this._updateSelectedDate.bind(this)} href="#" >{d}</a>
+                                <a class={`class1 ${this._generateDate(d,this.selectedMonth,this.selectedYear).getDay()===0 || this._generateDate(d,this.selectedMonth,this.selectedYear).getDay()===6  ? 'weekend' : 'day'} class2 ${d===this.selectedDay ? 'selected-day' : ''}`} onClick={this._updateSelectedDate.bind(this)} href="#" >{d}</a>
                              )
                             }
+                            {remainingDays.map(d=>
+                                <a class='supplementary-day' onClick={this._onNextMonthDaySelected.bind(this)} href="#" >{d}</a>
+                             )
+                            }
+                            
                         </div>
                     </section>
                 </main>
