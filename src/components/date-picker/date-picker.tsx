@@ -159,6 +159,10 @@ export class DatePicker{
         this.isOpen = false;
     }
 
+    componentDidLoad(){
+        this.dateEventEmitter.emit(this.selectedDate);
+    }
+
     private _generateDate(day:number,month:number, year:number):Date{
         const currentDate:Date = new Date();
         const currentTimeString:string = `${currentDate.toLocaleTimeString()} `
