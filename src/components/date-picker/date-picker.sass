@@ -2,8 +2,10 @@
     display: block
     font-family: Arial, Helvetica, sans-serif	
     border: 1px solid black
-    width: 35%
+    width: 42%
     margin: 1rem auto
+    border-radius: 10px
+    box-shadow: 2px 2px 2px grey
 
 .date-picker
     .current-date
@@ -42,18 +44,23 @@
                 align-self: center
 
         .month-content__month-days
-            .selected-day
-                background-color: red
-                text-align: center
-                padding: 0.2rem
-                border: 1px solid black
-                text-decoration: none
             display: grid
             grid-template-columns: repeat(7, 1fr)
-            .day
+            a
                 text-align: center
-                padding: 0.2rem
-                border: 1px solid black
+                padding: 1rem
                 text-decoration: none
+                border-radius: 50%
 
+            .selected-day
+                background-color: orange
+                color: purple
+            .day
+                color: black
+                &:hover
+                    background-color: beige 
+            .supplementary-day
+                color: grey
+                &:hover
+                    background-color: beige 
 

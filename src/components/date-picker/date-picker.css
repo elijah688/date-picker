@@ -2,8 +2,11 @@
   display: block;
   font-family: Arial, Helvetica, sans-serif;
   border: 1px solid black;
-  width: 35%;
+  width: 42%;
   margin: 1rem auto;
+  border-radius: 10px;
+  -webkit-box-shadow: 2px 2px 2px grey;
+          box-shadow: 2px 2px 2px grey;
 }
 
 .date-picker .current-date {
@@ -65,18 +68,31 @@
       grid-template-columns: repeat(7, 1fr);
 }
 
-.date-picker .date-picker__month .month-content__month-days .selected-day {
-  background-color: red;
+.date-picker .date-picker__month .month-content__month-days a {
   text-align: center;
-  padding: 0.2rem;
-  border: 1px solid black;
+  padding: 1rem;
   text-decoration: none;
+  border-radius: 50%;
+}
+
+.date-picker .date-picker__month .month-content__month-days .selected-day {
+  background-color: orange;
+  color: purple;
 }
 
 .date-picker .date-picker__month .month-content__month-days .day {
-  text-align: center;
-  padding: 0.2rem;
-  border: 1px solid black;
-  text-decoration: none;
+  color: black;
+}
+
+.date-picker .date-picker__month .month-content__month-days .day:hover {
+  background-color: beige;
+}
+
+.date-picker .date-picker__month .month-content__month-days .supplementary-day {
+  color: grey;
+}
+
+.date-picker .date-picker__month .month-content__month-days .supplementary-day:hover {
+  background-color: beige;
 }
 /*# sourceMappingURL=date-picker.css.map */
