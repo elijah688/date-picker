@@ -1,3 +1,24 @@
+:host([color='dark']) {
+  background-color: #151515;
+  color: dimgrey;
+}
+
+:host([color='dark']) .date-picker__navigation {
+  border: 1px solid dimgrey !important;
+}
+
+:host([color='dark']) .day {
+  color: white !important;
+}
+
+:host([color='dark']) .day:hover {
+  color: black !important;
+}
+
+:host([color='dark']) .selected-day {
+  color: purple !important;
+}
+
 :host {
   position: relative;
   display: block;
