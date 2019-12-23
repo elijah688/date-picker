@@ -10,7 +10,10 @@ import { HTMLStencilElement, JSXBase } from '@stencil/core/internal';
 
 
 export namespace Components {
-  interface ElijahDatePicker {}
+  interface ElijahDatePicker {
+    'close': () => Promise<void>;
+    'open': () => Promise<void>;
+  }
 }
 
 declare global {

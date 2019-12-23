@@ -1,23 +1,59 @@
 :host {
+  position: relative;
   display: block;
   font-family: Arial, Helvetica, sans-serif;
   border: 1px solid black;
-  padding: 0.5rem 1rem 1rem 1rem;
+  padding: 1rem;
   margin: 1rem auto;
   border-radius: 10px;
   -webkit-box-shadow: 2px 2px 2px grey;
           box-shadow: 2px 2px 2px grey;
 }
 
-.date-picker .current-date {
+.date-picker .date-display {
   text-align: center;
-  border: 1px solid red;
-  width: 50%;
-  margin: 0.5rem auto;
-  padding: 0.5rem;
 }
 
-.date-picker .date-picker__navigation {
+.date-picker .date-display .drop-down {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  position: absolute;
+  right: 1vw;
+  top: 1vh;
+  background-color: transparent;
+  color: orange;
+  border-radius: 50%;
+  border-color: transparent;
+  font-size: 1.5rem;
+  height: 6vh;
+  width: 6vh;
+  outline: none;
+}
+
+.date-picker .date-display .drop-down:hover {
+  background-color: beige;
+  cursor: pointer;
+}
+
+.date-picker .date-picker__body--closed {
+  opacity: 0;
+  height: 0vh;
+}
+
+.date-picker .date-picker__body--opened {
+  opacity: 1;
+  -webkit-transition: all 1s ease-out;
+  transition: all 1s ease-out;
+}
+
+.date-picker .date-picker__body--opened .date-picker__navigation {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -28,9 +64,10 @@
       -ms-flex-align: center;
           align-items: center;
   border: 1px solid black;
+  border-radius: 15px;
 }
 
-.date-picker .date-picker__navigation button {
+.date-picker .date-picker__body--opened .date-picker__navigation button {
   padding: 0.2rem 0.4rem;
   background-color: transparent;
   color: orange;
@@ -40,12 +77,12 @@
   cursor: pointer;
 }
 
-.date-picker .date-picker__navigation .current-month {
+.date-picker .date-picker__body--opened .date-picker__navigation .current-month {
   padding: 0.2rem;
   margin: 0.5rem;
 }
 
-.date-picker .date-picker__month .month-content__week-days {
+.date-picker .date-picker__body--opened .date-picker__month .month-content__week-days {
   display: -ms-grid;
   display: grid;
   -ms-grid-columns: (1fr)[7];
@@ -55,13 +92,13 @@
   text-align: center;
 }
 
-.date-picker .date-picker__month .month-content__week-days .week-day {
+.date-picker .date-picker__body--opened .date-picker__month .month-content__week-days .week-day {
   -ms-flex-item-align: center;
       -ms-grid-row-align: center;
       align-self: center;
 }
 
-.date-picker .date-picker__month .month-content__month-days {
+.date-picker .date-picker__body--opened .date-picker__month .month-content__month-days {
   display: -ms-grid;
   display: grid;
   -ms-grid-columns: (1fr)[7];
@@ -70,7 +107,7 @@
       grid-template-rows: repeat(6, 5.5vh);
 }
 
-.date-picker .date-picker__month .month-content__month-days a {
+.date-picker .date-picker__body--opened .date-picker__month .month-content__month-days a {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -88,28 +125,28 @@
   border-radius: 50%;
 }
 
-.date-picker .date-picker__month .month-content__month-days a:hover {
+.date-picker .date-picker__body--opened .date-picker__month .month-content__month-days a:hover {
   background-color: beige;
 }
 
-.date-picker .date-picker__month .month-content__month-days .day {
+.date-picker .date-picker__body--opened .date-picker__month .month-content__month-days .day {
   color: black;
 }
 
-.date-picker .date-picker__month .month-content__month-days .weekend {
+.date-picker .date-picker__body--opened .date-picker__month .month-content__month-days .weekend {
   color: orange;
 }
 
-.date-picker .date-picker__month .month-content__month-days .supplementary-day {
+.date-picker .date-picker__body--opened .date-picker__month .month-content__month-days .supplementary-day {
   color: grey;
 }
 
-.date-picker .date-picker__month .month-content__month-days .selected-day {
+.date-picker .date-picker__body--opened .date-picker__month .month-content__month-days .selected-day {
   background-color: orange;
   color: purple;
 }
 
-.date-picker .date-picker__month .month-content__month-days .selected-day:hover {
+.date-picker .date-picker__body--opened .date-picker__month .month-content__month-days .selected-day:hover {
   background-color: orange;
 }
 

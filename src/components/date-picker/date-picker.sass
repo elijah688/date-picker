@@ -1,80 +1,108 @@
 \:host
+    position: relative
     display: block
     font-family: Arial, Helvetica, sans-serif	
     border: 1px solid black
-    padding: 0.5rem 1rem 1rem 1rem
+    padding: 1rem 
     margin: 1rem auto
     border-radius: 10px
     box-shadow: 2px 2px 2px grey
  
        
 .date-picker
-    .current-date
+   
+    .date-display
         text-align: center
-        border: 1px solid red
-        width: 50%
-        margin: 0.5rem auto
-        padding: 0.5rem
-    .date-picker__navigation
-        display: flex
-        justify-content: space-between
-        align-items: center
-        border: 1px solid black
-        button
-            padding: 0.2rem 0.4rem
+        .drop-down
+            display: flex
+            align-items: center
+            justify-content: center
+            position: absolute
+            right: 1vw
+            top: 1vh
             background-color: transparent
             color: orange
+            border-radius: 50%
             border-color: transparent
-            font-size: 2rem
+            font-size: 1.5rem
+            height: 6vh
+            width: 6vh
             outline: none
-            cursor: pointer
-        .previous-month
-            
-        .current-month
-            padding: 0.2rem
-            margin: 0.5rem 
-        .next-month
-           
-    .date-picker__month
-        .month-content__week-days
-            display: grid
-            grid-template-columns: repeat(7, 1fr)
-            grid-template-rows: 5.5vh 
-            text-align: center
-            .week-day
-                align-self: center
-
-        .month-content__month-days
-            display: grid
-            grid-template-columns: repeat(7, 1fr)
-            grid-template-rows: repeat(6, 5.5vh)
-            a   
-                display: flex
-                justify-content: center
-                align-items: center
-                height: 5.5vh
-                text-align: center
-                align-self: center
-                text-decoration: none
-                border-radius: 50%
-                &:hover
-                    background-color: beige 
-
-            .day
-                color: black
-               
-          
-            .weekend
+            &:hover
+                background-color: beige
+                cursor: pointer
+        .current-date
+            // border: 1px solid red
+            // width: 50%
+            // margin: 0.5rem auto
+            // padding: 0.5rem
+    .date-picker__body--closed
+        opacity: 0
+        height: 0vh
+    .date-picker__body--opened
+        opacity: 1
+        transition: all 1s ease-out
+        .date-picker__navigation
+            display: flex
+            justify-content: space-between
+            align-items: center
+            border: 1px solid black
+            border-radius: 15px
+            button
+                padding: 0.2rem 0.4rem
+                background-color: transparent
                 color: orange
-               
-            .supplementary-day
-                color: grey
+                border-color: transparent
+                font-size: 2rem
+                outline: none
+                cursor: pointer
+            .previous-month
+                
+            .current-month
+                padding: 0.2rem
+                margin: 0.5rem 
+            .next-month
+            
+        .date-picker__month
+            .month-content__week-days
+                display: grid
+                grid-template-columns: repeat(7, 1fr)
+                grid-template-rows: 5.5vh 
+                text-align: center
+                .week-day
+                    align-self: center
 
-            .selected-day
-                background-color: orange
-                color: purple
-                &:hover
+            .month-content__month-days
+                display: grid
+                grid-template-columns: repeat(7, 1fr)
+                grid-template-rows: repeat(6, 5.5vh)
+                a   
+                    display: flex
+                    justify-content: center
+                    align-items: center
+                    height: 5.5vh
+                    text-align: center
+                    align-self: center
+                    text-decoration: none
+                    border-radius: 50%
+                    &:hover
+                        background-color: beige 
+
+                .day
+                    color: black
+                
+            
+                .weekend
+                    color: orange
+                
+                .supplementary-day
+                    color: grey
+
+                .selected-day
                     background-color: orange
+                    color: purple
+                    &:hover
+                        background-color: orange
 
 
 @media only screen and (min-width: 380px)

@@ -1,4 +1,4 @@
-import { Component, h, State } from "@stencil/core";
+import { Component, h, State, Method } from "@stencil/core";
 
 enum WeekDays {
     Monday = 'Monday', 
@@ -38,9 +38,22 @@ export class DatePicker{
     @State() selectedMonth:number;
     @State() selectedYear:number;
 
-    private _generateWeekDays(days:number[]):string[]{
-        // const week:number[] = days.map(d=>this._generateDate(d, this.selectedMonth, this.selectedYear).getDay())
-        // console.log(week)
+    @State() isOpen:boolean;
+
+    @Method()
+    open():void{
+        this.isOpen = true;
+    }
+
+    @Method()
+    close():void{
+        this.isOpen = false;
+    }
+
+    private toggle():void{
+        this.isOpen = !this.isOpen;
+    }
+    private _generateWeekDays():string[]{
         const week = Array.from(Array(7).keys())
         const weekSymbols:string[] = week.map(d=>Object.keys(WeekDays)[d].substring(0,1));
         return weekSymbols;
@@ -130,14 +143,8 @@ export class DatePicker{
         this.selectedDay = this.selectedDate.getDate();
         this.selectedMonth = this.selectedDate.getMonth();
         this.selectedYear = this.selectedDate.getFullYear();
-        
-        // const months:number[] = Array.from(Array(12).keys())
 
-        // const monthDays = months.map(m=>this._generateMonthDays(m))
-        // console.log(monthDays)
-
-        // (d+m+y+[y/4]+c ) mod 7
-
+        this.isOpen = false;
     }
 
     private _generateDate(day:number,month:number, year:number):Date{
@@ -179,7 +186,7 @@ export class DatePicker{
         if(this.selectedMonth===2 && this.selectedDay>this._handleFebruary()){
             this.selectedDay=this._handleFebruary()
         }
-        
+
         if(this.selectedMonth===0){
             this.selectedMonth = 11;
             this.selectedYear--;
@@ -203,6 +210,8 @@ export class DatePicker{
         this._goToNextMonth();
     }
 
+   
+
     render(){
         
         const daysInCurrentMonth:number = this._generateMonthDays(this.selectedMonth);
@@ -212,42 +221,46 @@ export class DatePicker{
         const remainingDays:number[] = this._getRemainingDays(days, supplementaryDays);
         
 
-        const weekDays:string[] = this._generateWeekDays(days.slice(0,7));
+        const weekDays:string[] = this._generateWeekDays();
 
         const datePicker = (
             <div class="date-picker">
-                <h1 class="current-date">{[this.selectedDay].map(d=>d<=9 ? "0" + d : d)}/{[this.selectedMonth+1].map(m=>m<=9? '0' + m : m)[0]}/{this.selectedYear}</h1>
-                <header class="date-picker__navigation">
-                    <button onClick={this._goToPreviousMonth.bind(this)} class="previous-month">&lt;</button>
-                    <h2 class="current-month">{Object.keys(Months)[this.selectedMonth]}</h2>
-                    <button onClick={this._goToNextMonth.bind(this)} class="next-month">&gt;</button>
-
-                </header>
-                <main class="date-picker__month">
-                    <section class="month-content">
-                        <div class="month-content__week-days">
-                            {weekDays.map(d=>
-                                <h4 class="week-day">{d}</h4>
-                             )
-                            }
-                        </div>
-                        <div class="month-content__month-days">
-                            {supplementaryDays.map(d=>
-                                <a class='supplementary-day' onClick={this._onPreviousMonthDaySelected.bind(this)} href="#" >{d}</a>
-                             )
-                            }
-                            {days.map(d=>
-                                <a class={`class1 ${this._generateDate(d,this.selectedMonth,this.selectedYear).getDay()===0 || this._generateDate(d,this.selectedMonth,this.selectedYear).getDay()===6  ? 'weekend' : 'day'} class2 ${d===this.selectedDay ? 'selected-day' : ''}`} onClick={this._updateSelectedDate.bind(this)} href="#" >{d}</a>
-                             )
-                            }
-                            {remainingDays.map(d=>
-                                <a class='supplementary-day' onClick={this._onNextMonthDaySelected.bind(this)} href="#" >{d}</a>
-                             )
-                            }
-                            
-                        </div>
-                    </section>
-                </main>
+                <div class="date-display">
+                    <button class="drop-down"  onClick={this.toggle.bind(this)}>{this.isOpen===true ? `${'Λ'}` : 'V'}</button>
+                    <h1 class="current-date">{[this.selectedDay].map(d=>d<=9 ? "0" + d : d)}/{[this.selectedMonth+1].map(m=>m<=9? '0' + m : m)[0]}/{this.selectedYear}</h1>
+                </div>
+                
+                <div class={this.isOpen===true ? 'date-picker__body--opened' : 'date-picker__body--closed'}>
+                    <header class="date-picker__navigation">
+                        <button onClick={this._goToPreviousMonth.bind(this)} class="previous-month">&lt;</button>
+                        <h2 class="current-month">{Object.keys(Months)[this.selectedMonth]}</h2>
+                        <button onClick={this._goToNextMonth.bind(this)} class="next-month">&gt;</button>
+                    </header>
+                    <main class="date-picker__month">
+                        <section class="month-content">
+                            <div class="month-content__week-days">
+                                {weekDays.map(d=>
+                                    <h4 class="week-day">{d}</h4>
+                                )
+                                }
+                            </div>
+                            <div class="month-content__month-days">
+                                {supplementaryDays.map(d=>
+                                    <a class='supplementary-day' onClick={this._onPreviousMonthDaySelected.bind(this)} href="#" >{d}</a>
+                                )
+                                }
+                                {days.map(d=>
+                                    <a class={`class1 ${this._generateDate(d,this.selectedMonth,this.selectedYear).getDay()===0 || this._generateDate(d,this.selectedMonth,this.selectedYear).getDay()===6  ? 'weekend' : 'day'} class2 ${d===this.selectedDay ? 'selected-day' : ''}`} onClick={this._updateSelectedDate.bind(this)} href="#" >{d}</a>
+                                )
+                                }
+                                {remainingDays.map(d=>
+                                    <a class='supplementary-day' onClick={this._onNextMonthDaySelected.bind(this)} href="#" >{d}</a>
+                                )
+                                }
+                            </div>
+                        </section>
+                    </main>
+                </div>
             </div>
         )
         return datePicker;
