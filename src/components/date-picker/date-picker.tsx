@@ -53,13 +53,15 @@ export class DatePicker{
       }
 
     @Method()
-    open():void{
-        this.isOpen = true;
+    async open():Promise<boolean> {
+        const promise =  await new Promise<boolean>((resolve,reject)=>{resolve(this.isOpen=true)});
+        return promise
     }
 
     @Method()
-    close():void{
-        this.isOpen = false;
+    async close():Promise<boolean>{
+        const promise =  await new Promise<boolean>((resolve,reject)=>{resolve(this.isOpen=false)});
+        return promise
     }
 
     private toggle():void{

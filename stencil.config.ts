@@ -9,7 +9,8 @@ export const config: Config = {
     },
     {
       type: 'docs-readme'
-    },
+    }
+    ,
     {
       type: 'www',
       serviceWorker: null // disable service workers

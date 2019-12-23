@@ -11,9 +11,9 @@ import { HTMLStencilElement, JSXBase } from '@stencil/core/internal';
 
 export namespace Components {
   interface ElijahDatePicker {
-    'close': () => Promise<void>;
+    'close': () => Promise<boolean>;
     'color': string;
-    'open': () => Promise<void>;
+    'open': () => Promise<boolean>;
   }
   interface ElijahDisplayDate {}
 }
