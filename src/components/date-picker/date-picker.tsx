@@ -54,13 +54,19 @@ export class DatePicker{
 
     @Method()
     async open():Promise<boolean> {
-        const promise =  await new Promise<boolean>((resolve,reject)=>{resolve(this.isOpen=true)});
+        const promise =  await new Promise<boolean>((resolve,reject)=>{
+            resolve(this.isOpen=true)
+            reject()
+        });
         return promise
     }
 
     @Method()
     async close():Promise<boolean>{
-        const promise =  await new Promise<boolean>((resolve,reject)=>{resolve(this.isOpen=false)});
+        const promise =  await new Promise<boolean>((resolve,reject)=>{
+            resolve(this.isOpen=false)
+            reject()
+        });
         return promise
     }
 
