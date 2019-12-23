@@ -12,8 +12,10 @@ import { HTMLStencilElement, JSXBase } from '@stencil/core/internal';
 export namespace Components {
   interface ElijahDatePicker {
     'close': () => Promise<void>;
+    'color': string;
     'open': () => Promise<void>;
   }
+  interface ElijahDisplayDate {}
 }
 
 declare global {
@@ -24,16 +26,28 @@ declare global {
     prototype: HTMLElijahDatePickerElement;
     new (): HTMLElijahDatePickerElement;
   };
+
+  interface HTMLElijahDisplayDateElement extends Components.ElijahDisplayDate, HTMLStencilElement {}
+  var HTMLElijahDisplayDateElement: {
+    prototype: HTMLElijahDisplayDateElement;
+    new (): HTMLElijahDisplayDateElement;
+  };
   interface HTMLElementTagNameMap {
     'elijah-date-picker': HTMLElijahDatePickerElement;
+    'elijah-display-date': HTMLElijahDisplayDateElement;
   }
 }
 
 declare namespace LocalJSX {
-  interface ElijahDatePicker {}
+  interface ElijahDatePicker {
+    'color'?: string;
+    'onSelectedDateEvent'?: (event: CustomEvent<any>) => void;
+  }
+  interface ElijahDisplayDate {}
 
   interface IntrinsicElements {
     'elijah-date-picker': ElijahDatePicker;
+    'elijah-display-date': ElijahDisplayDate;
   }
 }
 
@@ -44,6 +58,7 @@ declare module "@stencil/core" {
   export namespace JSX {
     interface IntrinsicElements {
       'elijah-date-picker': LocalJSX.ElijahDatePicker & JSXBase.HTMLAttributes<HTMLElijahDatePickerElement>;
+      'elijah-display-date': LocalJSX.ElijahDisplayDate & JSXBase.HTMLAttributes<HTMLElijahDisplayDateElement>;
     }
   }
 }

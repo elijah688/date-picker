@@ -1,0 +1,10 @@
+import { Component, h} from "@stencil/core";
+
+@Component({
+    tag:'elijah-display-date',
+    styleUrl:'display-date.css',
+    shadow:true
+})
+export class DisplayDate{
+    
+}

@@ -1,4 +1,4 @@
-import { Component, h, State, Method } from "@stencil/core";
+import { Component, h, State, Method, Prop, Event, EventEmitter } from "@stencil/core";
 
 enum WeekDays {
     Monday = 'Monday', 
@@ -39,6 +39,18 @@ export class DatePicker{
     @State() selectedYear:number;
 
     @State() isOpen:boolean;
+
+    @Prop() color:string;
+    @Event({
+        eventName: 'selectedDateEvent',
+        composed: true,
+        bubbles: true,
+      }) dateEventEmitter: EventEmitter;
+    
+      selectedDateEventHandler():void {
+        console.log(this.selectedDate)
+        this.dateEventEmitter.emit(this.selectedDate);
+      }
 
     @Method()
     open():void{
@@ -160,7 +172,7 @@ export class DatePicker{
         this.selectedDay = +day;
 
         this.selectedDate = this._generateDate(this.selectedDay,this.selectedMonth,this.selectedYear)
-
+        this.selectedDateEventHandler();
     }
 
 
@@ -180,6 +192,8 @@ export class DatePicker{
         }
 
         this.selectedDate = this._generateDate(this.selectedDay, this.selectedMonth, this.selectedYear)
+        this.selectedDateEventHandler();
+
     }
 
     private _goToPreviousMonth():void{
@@ -196,6 +210,8 @@ export class DatePicker{
         }
 
         this.selectedDate = this._generateDate(this.selectedDay, this.selectedMonth, this.selectedYear)
+        this.selectedDateEventHandler();
+
     }
 
     private _onPreviousMonthDaySelected(event:Event):void{
