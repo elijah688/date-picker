@@ -2,7 +2,7 @@
   display: block;
   font-family: Arial, Helvetica, sans-serif;
   border: 1px solid black;
-  width: 42%;
+  padding: 0.5rem 1rem 1rem 1rem;
   margin: 1rem auto;
   border-radius: 10px;
   -webkit-box-shadow: 2px 2px 2px grey;
@@ -50,8 +50,8 @@
   display: grid;
   -ms-grid-columns: (1fr)[7];
       grid-template-columns: repeat(7, 1fr);
-  -ms-grid-rows: 5vh;
-      grid-template-rows: 5vh;
+  -ms-grid-rows: 5.5vh;
+      grid-template-rows: 5.5vh;
   text-align: center;
 }
 
@@ -66,11 +66,24 @@
   display: grid;
   -ms-grid-columns: (1fr)[7];
       grid-template-columns: repeat(7, 1fr);
+  -ms-grid-rows: (5.5vh)[6];
+      grid-template-rows: repeat(6, 5.5vh);
 }
 
 .date-picker .date-picker__month .month-content__month-days a {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  height: 5.5vh;
   text-align: center;
-  padding: 1rem;
+  -ms-flex-item-align: center;
+      align-self: center;
   text-decoration: none;
   border-radius: 50%;
 }
@@ -98,5 +111,41 @@
 
 .date-picker .date-picker__month .month-content__month-days .selected-day:hover {
   background-color: orange;
+}
+
+@media only screen and (min-width: 380px) {
+  :host {
+    width: 80%;
+  }
+}
+
+@media only screen and (min-width: 567px) {
+  :host {
+    width: 50%;
+  }
+}
+
+@media only screen and (min-width: 640px) {
+  :host {
+    width: 45%;
+  }
+}
+
+@media only screen and (min-width: 768px) {
+  :host {
+    width: 35%;
+  }
+}
+
+@media only screen and (min-width: 1024px) {
+  :host {
+    width: 25%;
+  }
+}
+
+@media only screen and (min-width: 1200px) {
+  :host {
+    width: 20%;
+  }
 }
 /*# sourceMappingURL=date-picker.css.map */
